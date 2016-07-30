@@ -5,7 +5,7 @@
 //  Created by Nikema Prophet on 7/30/16.
 //  Copyright © 2016 Nikema Prophet. All rights reserved.
 //
-
+import Social
 import UIKit
 
 class DetailViewController: UIViewController {
@@ -34,6 +34,8 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(DetailViewController.shareTapped))
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,5 +53,15 @@ class DetailViewController: UIViewController {
         navigationController?.hidesBarsOnTap = false
     }
 
+    func shareTapped() {
+//        let activity = UIActivityViewController(activityItems: [detailImageView.image!], applicationActivities: [])
+//        presentViewController(activity, animated: true, completion: nil)
+        
+        let social = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+        social.setInitialText("Hello world, buy my app!")
+        social.addImage(detailImageView.image!)
+        social.addURL(NSURL(string: "http://www.photolib.noaa.gov/nssl"))
+        presentViewController(social, animated: true, completion: nil)
+    }
 }
 
